@@ -33,7 +33,8 @@
 /*
  * Configuration options for Vtiger:
  */
-$db_dsn_vtiger          = "mysql:dbname=vtigercrm540;host=127.0.0.1;port=33307";
+$db_name_vtiger         = "vtigercrm540";
+$db_dsn_vtiger          = "mysql:dbname=".$db_name_vtiger.";host=127.0.0.1;port=33307";
 $db_user_vtiger         = "root";
 $db_pass_vtiger         = "123456";
 $dbConnectionVtiger     = new PDO($db_dsn_vtiger, $db_user_vtiger, $db_pass_vtiger);
@@ -41,7 +42,8 @@ $dbConnectionVtiger     = new PDO($db_dsn_vtiger, $db_user_vtiger, $db_pass_vtig
 /*
  * Configuration options for PHPList:
  */
-$db_dsn_phplist         = "mysql:dbname=phplist;host=127.0.0.1;port=3306";
+$db_name_phplist        = "phplist";
+$db_dsn_phplist         = "mysql:dbname=".$db_name_phplist.";host=127.0.0.1;port=3306";
 $db_user_phplist        = "root";
 $db_pass_phplist        = "";
 $dbConnectionPhplist    = new PDO($db_dsn_phplist, $db_user_phplist, $db_pass_phplist);
@@ -49,8 +51,9 @@ $dbConnectionPhplist    = new PDO($db_dsn_phplist, $db_user_phplist, $db_pass_ph
 /*
  * Configuration options for Vtiger-PHPList join table database:
  */
-$db_dsn_bridge          = "mysql:dbname=vtigercrm540;host=127.0.0.1;port=33307";
+$db_name_bridge         = "vt_phpl_integration";
+$db_dsn_bridge          = "mysql:dbname=".$db_name_bridge.";host=127.0.0.1;port=33307";
 $db_user_bridge         = "root";
 $db_pass_bridge         = "123456";
-//$dbconnect_bridge     = new PDO($db_dsn_bridge, $db_user_bridge, $db_pass_bridge);
+$dbconnect_bridge       = new PDO($db_dsn_bridge, $db_user_bridge, $db_pass_bridge);
 ?>

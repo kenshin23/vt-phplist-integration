@@ -29,13 +29,44 @@
  * @version    1.0
  * @link       http://d1m1.heliohost.org/code/php/vtiger-campaign-module
  */
+/*
+ * Include main configuration file:
+ */
+require_once 'app/config.php';
 
-//Leer la base de datos - tabla compartida.
-//Obtener los registros de esta
-//Si hay registros
-    //Por cada registro
-        //Obtener datos de la tabla de campañas de vtiger
-        //Obtener datos de la tabla de listas de phplist
+//{{{
+/*
+ * Include records from Joint Vtiger-PHPList Database:
+ */
+require_once 'lib/DFCInterface.class.php';
+require_once 'lib/DFC.class.php';
+require_once 'lib/DSC.class.php';
+require_once 'lib/DFCAggregate.class.php';
+require_once 'lib/Db2PhpEntity.class.php';
+require_once 'lib/Db2PhpEntityBase.class.php';
+require_once 'lib/Db2PhpEntityModificationTracking.class.php';
+
+require_once 'lib/vtiger/VTigerCampaign.class.php';
+require_once 'lib/VTigerPhPListCampaigns.class.php';
+require_once 'lib/VTigerPhPListJoin.class.php';
+require_once 'lib/phplist/PhPListList.class.php';
+//}}}
+
+$campaignsql    = "SELECT * FROM vtiger_phplist_campaigns";
+$campaigns      = VTigerPhPListCampaigns::findBySql($dbconnect_bridge, $campaignsql);
+
+if (is_array($campaigns) and count($campaigns) > 0) {
+    foreach($campaigns as $campaign) {
+        $vtigerObject   = VTigerCampaign::findById($dbconnect_vtiger, 
+                                                    $campaign->getVTigerCamPainGId());
+        $phplistObject  = PhPListList::findById($dbconnect_phplist, 
+                                                    $campaign->getPhPListListId());
+        echo "<br/>Vtiger:", var_dump($vtigerObject), "</pre><br/>";
+        echo "<br/>Phplist:", var_dump($phplistObject), "</pre><br/>";
+    }
+}
 //Si no hay registros
+else {
     //Colocar un enlace a crear campaña de marketing
+}
 ?>

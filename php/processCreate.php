@@ -66,6 +66,7 @@ require_once 'lib/vtiger/VTigerTracker.class.php';
 require_once 'lib/vtiger/VtigerContactDetails.class.php';
 require_once 'lib/vtiger/VtigerLeadDetails.class.php';
 
+require_once 'lib/VTigerPhPListCampaigns.class.php';
 require_once 'lib/VTigerPhPListJoin.class.php';
 
 require_once 'lib/phplist/PhPListList.class.php';
@@ -331,12 +332,26 @@ function getContacts() {
 }
 
 /**
+ * return void
+ */
+function testGetContacts(){
+    
+}
+
+/**
  *
  * @return  array   or
  *          NULL 
  */
 function getLeads() {
     return array();
+}
+
+/**
+ * return void
+ */
+function testGetLeads() {
+    
 }
 
 /**
@@ -532,6 +547,29 @@ function sendToPHPList($contactsList = Array(), $leadsList = Array()) {
     }
 }
 
+function linkDatabase() {
+    global $objectCampaign;
+    global $objectPhplistList;
+    global $dbconnect_bridge;
+    
+    try {
+        $vtigerId   = $objectCampaign->getCampaignId();
+        $phplistId  = $objectPhplistList->getId();
+        
+        if($vtigerId == NULL or $phplistId == NULL) {
+            throw new Exception ("Not able to get corresponding IDs of campaign or list.");
+        }
+        else {
+            $objectLink = new VTigerPhPListCampaigns();
+            $objectLink->setPhPListListId($vtigerId);
+            $objectLink->setVTigerCamPainGId($phplistId);
+            $objectLink->insertIntoDatabase($dbconnect_bridge);
+        }
+    } catch (Exception $exc) {
+        echo $exc->getTraceAsString();
+    }
+}
+
 /** -- Bussiness Logic -- **/
 testFormSubmit();
 
@@ -548,4 +586,8 @@ testGetContacts();
 testGetLeads();
 
 sendToVtiger();
+
+sendToPHPList($contactsList, $leadsList);
+
+linkDatabase();
 ?>

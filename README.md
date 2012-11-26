@@ -31,19 +31,30 @@ There's still much to be done.
 Requirements
 ============
 
-PHP >= 5.3 with PDO and pdo_mysql
-jQuery >= 1.8.3
-jQuery UI >= 1.9.2
+- PHP >= 5.3 with PDO and pdo_mysql
+- jQuery >= 1.8.3
+- jQuery UI >= 1.9.2
+- Vtiger 5.4.0
+- PHPList 2.10.19
+- FTP access for your hosting server, or a suitable testing environment (I use XAMPP).
 
 Installation
 ============
 
-This is not meant to be used as a standalone application, so current installation instructions are not available... yet. Sorry.
+This is not meant to be used as a standalone application yet. However, for developing and testing:
+
+- Install Vtiger per its installation instructions. Write down the details for access to its database.
+- Install PHPList per its installation instructions. Write down the details for access to its database.
+- Download this code. Unzip into an appropiate folder. 
+- Create a new database, name it vt_plist_integration, and import the SQL named "jointable.sql" located in the sql folder.
+- Place or upload this code into an appropiate folder in your hosting/test server, making sure to keep folder structure as it is.
+- Edit app/config.php with the database details written down previously. Edit the host, ports, usernames and passwords values as needed.
+- Done. You can access index.php inside the php folder for a test of the e-Marketing campaign module.
 
 License
 =======
 
-Due to recent problems, I've decided to release this code under the GNU General Public Licence v3
+Due to recent problems, I've decided to release this code under the GNU General Public Licence v3, which I believe is consistent with both Vtiger's and PHPList's licences.
 
 Copyright (C) 2012 Carlos Paparoni
 
